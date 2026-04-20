@@ -15,13 +15,14 @@
 
 body {
   background: #ede6dc;
+  overflow: hidden;
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100dvh;
 }
 
 .title {

@@ -29,5 +29,17 @@ body {
   font-family: 'Libre Barcode 39 Text';
   font-size: 8rem;
   color: #673137;
+  animation: floatIn 2.0s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

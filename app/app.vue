@@ -14,7 +14,7 @@
 }
 
 body {
-  background: #ede6dc;
+  background: #eae3d9;
   overflow: hidden;
 }
 
@@ -26,9 +26,10 @@ body {
 }
 
 .title {
-  font-family: 'Libre Barcode 39 Text';
+  font-family: 'Libre Barcode 39 Text',serif;
   font-size: 8rem;
   color: #673137;
+  user-select: none;
   animation: floatIn 2.0s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

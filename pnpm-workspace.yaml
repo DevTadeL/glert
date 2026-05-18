@@ -1,6 +1,0 @@
-overrides:
-  '@nuxt/kit': 4.4.2
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild

@@ -1,16 +1,28 @@
 <template>
   <div class="container" @click="navigateTo('/glert')">
     <span class="title">glert</span>
+    <div class="actions">
+      <Icon name="mdi:cards-outline" size="2rem" @click.prevent="navigateTo('/ebssd2')" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.actions {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: #4a2e1a;
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100dvh;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .title {

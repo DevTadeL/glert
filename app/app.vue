@@ -13,6 +13,5 @@
 
 body {
   background: #eae3d9;
-  overflow: hidden;
 }
 </style>

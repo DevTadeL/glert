@@ -12,9 +12,35 @@ interface DisplayQuestion {
   displayOptions: DisplayOption[]
 }
 
-type SessionState = 'idle' | 'active' | 'finished'
+interface QuestionSet {
+  id: string
+  label: string
+  count: number
+}
 
-const state = ref<SessionState>('idle')
+type SessionState = 'select' | 'active' | 'finished'
+
+const SET_LABELS: Record<string, string> = {
+  hs19: 'Kurztest 3 (HS19)',
+  fs16: 'Kurztest 4 (FS16)',
+  kt2hs19: 'Kurztest 2 (HS19)',
+}
+
+const sets = computed<QuestionSet[]>(() => {
+  const counts = new Map<string, number>()
+  for (const q of allQuestions) {
+    const prefix = q.id.split('-')[0]!
+    counts.set(prefix, (counts.get(prefix) ?? 0) + 1)
+  }
+  return [...counts.entries()].map(([id, count]) => ({
+    id,
+    label: SET_LABELS[id] ?? id.toUpperCase(),
+    count,
+  }))
+})
+
+const state = ref<SessionState>('select')
+const activeQuestions = ref<Question[]>([])
 const queue = ref<Question[]>([])
 const correctlyAnsweredIds = ref(new Set<string>())
 const errorCount = ref(0)
@@ -23,7 +49,7 @@ const answered = ref(false)
 const selectedDisplayIndex = ref<number | null>(null)
 const lastWasCorrect = ref(false)
 
-const totalQuestions = computed(() => allQuestions.length)
+const totalQuestions = computed(() => activeQuestions.value.length)
 const answeredCount = computed(() => correctlyAnsweredIds.value.size)
 const progressPct = computed(() =>
   totalQuestions.value === 0 ? 0 : (answeredCount.value / totalQuestions.value) * 100
@@ -43,12 +69,27 @@ function prepareDisplay(q: Question): DisplayQuestion {
   return { question: q, displayOptions: shuffle(indexed) }
 }
 
-function start() {
-  queue.value = shuffle(allQuestions)
+function startSet(setId: string | null) {
+  activeQuestions.value =
+    setId === null ? allQuestions : allQuestions.filter((q) => q.id.startsWith(`${setId}-`))
+  queue.value = shuffle(activeQuestions.value)
   errorCount.value = 0
   correctlyAnsweredIds.value = new Set()
   state.value = 'active'
   pickNext()
+}
+
+function restart() {
+  queue.value = shuffle(activeQuestions.value)
+  errorCount.value = 0
+  correctlyAnsweredIds.value = new Set()
+  state.value = 'active'
+  pickNext()
+}
+
+function backToSelect() {
+  state.value = 'select'
+  currentDisplay.value = null
 }
 
 function pickNext() {
@@ -97,14 +138,29 @@ function optionState(displayIndex: number): 'idle' | 'correct' | 'wrong' | 'mute
 
 <template>
   <div class="session">
-    <div v-if="state === 'idle'" class="screen screen-center">
+    <div v-if="state === 'select'" class="screen screen-center">
       <h1 class="title">EBSSD</h1>
-      <p class="subtitle">{{ totalQuestions }} Fragen</p>
-      <button class="primary" @click="start">Session starten</button>
+      <p class="subtitle">Set wählen</p>
+      <div class="cards">
+        <button
+          v-for="set in sets"
+          :key="set.id"
+          class="card"
+          @click="startSet(set.id)"
+        >
+          <span class="card-label">{{ set.label }}</span>
+          <span class="card-count">{{ set.count }} Fragen</span>
+        </button>
+        <button class="card card-all" @click="startSet(null)">
+          <span class="card-label">Alle</span>
+          <span class="card-count">{{ allQuestions.length }} Fragen</span>
+        </button>
+      </div>
     </div>
 
     <div v-else-if="state === 'active' && currentDisplay" class="screen">
       <div class="meta">
+        <button class="back" @click="backToSelect">← Sets</button>
         <span>{{ answeredCount }} / {{ totalQuestions }} richtig</span>
         <span :class="{ errors: errorCount > 0 }">{{ errorCount }} Fehler</span>
       </div>
@@ -141,7 +197,10 @@ function optionState(displayIndex: number): 'idle' | 'correct' | 'wrong' | 'mute
       <p class="subtitle">
         <span :class="errorCount === 0 ? 'good' : 'errors'">{{ errorCount }}</span> Fehler insgesamt
       </p>
-      <button class="primary" @click="start">Nochmal starten</button>
+      <div class="finish-actions">
+        <button class="primary" @click="restart">Nochmal</button>
+        <button class="primary secondary" @click="backToSelect">Set wechseln</button>
+      </div>
     </div>
   </div>
 </template>
@@ -179,6 +238,53 @@ function optionState(displayIndex: number): 'idle' | 'correct' | 'wrong' | 'mute
   margin-bottom: 2.5rem;
 }
 
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.card {
+  background: transparent;
+  border: 1.5px solid rgba(74, 46, 26, 0.25);
+  color: #4a2e1a;
+  font-family: inherit;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.875rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.card:hover {
+  border-color: #4a2e1a;
+}
+
+.card:active {
+  transform: scale(0.99);
+}
+
+.card-all {
+  border-style: solid;
+  border-width: 1.5px;
+  border-color: #4a2e1a;
+  background: rgba(74, 46, 26, 0.04);
+}
+
+.card-label {
+  font-size: 1.125rem;
+}
+
+.card-count {
+  font-size: 0.875rem;
+  opacity: 0.6;
+}
+
 .primary {
   background: transparent;
   border: 1.5px solid #4a2e1a;
@@ -198,21 +304,50 @@ function optionState(displayIndex: number): 'idle' | 'correct' | 'wrong' | 'mute
   color: #eae3d9;
 }
 
+.primary.secondary {
+  border-color: rgba(74, 46, 26, 0.4);
+}
+
 .continue {
   display: block;
   width: 100%;
   margin-top: 1.5rem;
 }
 
+.finish-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .meta {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.875rem;
   opacity: 0.7;
   margin-bottom: 0.5rem;
+  gap: 0.75rem;
 }
 
 .meta .errors {
+  opacity: 1;
+}
+
+.back {
+  background: transparent;
+  border: none;
+  color: #4a2e1a;
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.7;
+  margin-right: auto;
+}
+
+.back:hover {
   opacity: 1;
 }
 

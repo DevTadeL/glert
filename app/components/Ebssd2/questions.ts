@@ -15,7 +15,7 @@ export const questions: Question[] = [
   {
     id: 'hs19-01',
     question:
-      'Der Build Prozess des Java-basierten Teils einer Android App wird bei Android Studio gesteuert durch das Programm ...',
+        'Der Build Prozess des Java-basierten Teils einer Android App wird bei Android Studio gesteuert durch das Programm ...',
     options: ['gradle', 'make', 'cmake'],
     correctIndex: 0
   },
@@ -74,7 +74,7 @@ export const questions: Question[] = [
   {
     id: 'hs19-08',
     question:
-      'Wo und zu welchem Zeitpunkt wird bei aktuellen Android Versionen der Maschinencode einer Java-basierten App generiert?',
+        'Wo und zu welchem Zeitpunkt wird bei aktuellen Android Versionen der Maschinencode einer Java-basierten App generiert?',
     options: [
       'Auf dem Gerät während der Ausführung der App (Just-in-Time)',
       'In Android Studio beim Build-Zeitpunkt',
@@ -105,7 +105,7 @@ export const questions: Question[] = [
   {
     id: 'hs19-11',
     question:
-      'Die Behandlung einer TCP-Connection (nach erfolgtem Verbindungsaufbau) in einem separaten Prozess ...',
+        'Die Behandlung einer TCP-Connection (nach erfolgtem Verbindungsaufbau) in einem separaten Prozess ...',
     options: [
       'ist durch fork() möglich',
       'erfolgt immer automatisch in einem separaten Prozess',
@@ -178,14 +178,14 @@ export const questions: Question[] = [
   {
     id: 'hs19-19',
     question:
-      'Welche Realtime-Eigenschaften sind mit einem "standardmässigen" Android-System realisierbar?',
+        'Welche Realtime-Eigenschaften sind mit einem "standardmässigen" Android-System realisierbar?',
     options: ['Soft Realtime', 'Hard Realtime', 'Keine (weder Hard- noch Soft-Realtime)'],
     correctIndex: 2
   },
   {
     id: 'hs19-20',
     question:
-      'Wenn der Anwender die App schliesst (durch Drücken des "Back" Buttons), so wird in der Folge ...',
+        'Wenn der Anwender die App schliesst (durch Drücken des "Back" Buttons), so wird in der Folge ...',
     options: [
       'sowohl das Activity Objekt freigegeben wie auch der App Prozess beendet',
       'weder der App Prozess beendet noch das betreffende Activity Objekt freigegeben',
@@ -216,7 +216,7 @@ export const questions: Question[] = [
   {
     id: 'hs19-23',
     question:
-      'Soll eine App (nur) auf einen Intent reagieren, wenn deren Activity sichtbar ist, so definiert man den Intent Filter ...',
+        'Soll eine App (nur) auf einen Intent reagieren, wenn deren Activity sichtbar ist, so definiert man den Intent Filter ...',
     options: [
       'im AndroidManifest.xml',
       'im Constructor der Activity (entfernt wird er ja automatisch beim "Destroy" der Activity)',
@@ -341,7 +341,7 @@ export const questions: Question[] = [
   {
     id: 'fs16-10',
     question:
-      'Wie lange darf eine Ereignis-Methode in einer Android "Activity" dauern (z.B. aufgrund eines blockierenden Systemaufrufes)?',
+        'Wie lange darf eine Ereignis-Methode in einer Android "Activity" dauern (z.B. aufgrund eines blockierenden Systemaufrufes)?',
     options: [
       'maximal wenige Sekunden',
       'maximal wenige Millisekunden (in Activities sind überhaupt keine Blockierungen zulässig)',
@@ -352,7 +352,7 @@ export const questions: Question[] = [
   {
     id: 'fs16-11',
     question:
-      'Die rekursive Fibonacci-Lösung via JNI ist im Vergleich zur entsprechenden Lösung in Java (und Verwendung der ART) ...',
+        'Die rekursive Fibonacci-Lösung via JNI ist im Vergleich zur entsprechenden Lösung in Java (und Verwendung der ART) ...',
     options: [
       'mindestens 10x schneller',
       'genau gleich schnell (da beides native Maschinencode)',
@@ -389,7 +389,7 @@ export const questions: Question[] = [
   {
     id: 'fs16-15',
     question:
-      'Android verwendet standardmässig als lokalen Interprozess-Kommunikationsmechanismus (IPC) ...',
+        'Android verwendet standardmässig als lokalen Interprozess-Kommunikationsmechanismus (IPC) ...',
     options: [
       'den Linux D-Bus (via Kernel Module "Kdbus")',
       'die "UNIX-Sockets"',
@@ -410,7 +410,7 @@ export const questions: Question[] = [
   {
     id: 'fs16-17',
     question:
-      'Wenn Ihre App auf Geräte-Ereignisse reagieren soll (z.B. eingehenden Anruf), so ist hierfür seitens Ihrer App folgendes nötig:',
+        'Wenn Ihre App auf Geräte-Ereignisse reagieren soll (z.B. eingehenden Anruf), so ist hierfür seitens Ihrer App folgendes nötig:',
     options: ['ein "Content Provider"', 'ein "Broadcast Receiver"', 'ein "Service"'],
     correctIndex: 1
   },
@@ -513,7 +513,7 @@ export const questions: Question[] = [
   {
     id: 'fs16-28',
     question:
-      'Welche Activity-Ereignismethode wird jedenfalls ausgeführt bevor die Android-Umgebung den App-Prozess vollständig beendet?',
+        'Welche Activity-Ereignismethode wird jedenfalls ausgeführt bevor die Android-Umgebung den App-Prozess vollständig beendet?',
     options: ['onStop()', 'onPause()', 'onDestroy()'],
     correctIndex: 1
   },
@@ -525,6 +525,148 @@ export const questions: Question[] = [
       'kann sowohl eine ARM-CPU als auch eine x86-CPU emulieren (letzteres schneller)',
       'kann nur ein Android-Gerät mit einer PC-kompatiblen CPU-Architektur emulieren (also x86)'
     ],
+    correctIndex: 1
+  },
+
+  // ===== Kurztest 2 (HS19) =====
+  {
+    id: 'kt2hs19-01',
+    question:
+        'Bei CGI (Common Gateway Interface) startet der Webserver den ausgelagerten Programmteil ...',
+    options: [
+      'als Shared Library',
+      'als separaten "Child Process"',
+      'als Thread des Webserver-Prozesses (also im gleichen Prozessraum wie dieser)'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'kt2hs19-02',
+    question:
+        'Mit welchem (File-)System-Call kann das Anwenderprogramm typischerweise treiberspezifische Funktionen oder Einstellungen ausführen?',
+    options: ['system()', 'mmap()', 'ioctl()'],
+    correctIndex: 2
+  },
+  {
+    id: 'kt2hs19-03',
+    question:
+        'Bei welchem Verfahren findet für einen Hardwarezugriff aus dem Userspace KEIN Context-Switch in den Kernelspace statt?',
+    options: [
+      'bei Zugriff via /dev/mem resp. mmap()',
+      'bei Zugriff über einen Devicenode',
+      'bei Zugriff via Sysfs (über /sys/class/...)'
+    ],
+    correctIndex: 0
+  },
+  {
+    id: 'kt2hs19-04',
+    question:
+        'Beim Extended Regular Expression \'abc(.*)fgh\' haben die runden Klammern folgende Bedeutung:',
+    options: [
+      '"einfangen" eine Gruppe von Zeichen (zwecks Wiederverwendung)',
+      'optionale Angabe (der in Klammern aufgeführte Text muss nicht zwingend vorhanden sein)',
+      'Zeichenauswahl (ein in Klammern aufgeführtes Zeichen muss zutreffen)'
+    ],
+    correctIndex: 0
+  },
+  {
+    id: 'kt2hs19-05',
+    question: 'Bei Linux erfolgt das Einlagern eines statisch gelinkten Programmteils ins Physical Memory ...',
+    options: [
+      'ohne "On Demand Paging" (also unmittelbar bei Programmstart)',
+      'mittels "On Demand Paging" (wie bei dyn. gelinkten Programmteilen)',
+      'ohne Paging (die CPU arbeitet direkt mit physikalischen Speicheradressen)'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'kt2hs19-06',
+    question: 'Was ist via mmap() System Call NICHT realisierbar?',
+    options: [
+      'Direktzugriffe auf Peripherieregister des SoC',
+      'Interrupts resp. Asynchron Notifications',
+      'Mappen einer Datei in den virtuellen Prozessraum der Anwendung'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'kt2hs19-07',
+    question: 'Die Einträge einer "Page Table" zeigen auf ...',
+    options: [
+      'Virtual Memory Pages',
+      'Page Directories (oder wiederum auf Page Tables)',
+      'Physical Memory Pages'
+    ],
+    correctIndex: 2
+  },
+  {
+    id: 'kt2hs19-08',
+    question: 'Welche Art Devices lassen sich ins Virtual Filesystem (VFS) "mounten"?',
+    options: ['Devices, für welche es einen Devicenode gibt', 'Character Devices', 'Block Devices'],
+    correctIndex: 2
+  },
+  {
+    id: 'kt2hs19-09',
+    question: 'Welche Dateisysteme eignen sich für Flash basierte Speicher am besten?',
+    options: [
+      'Journalling Filesystems',
+      'Dateisysteme ganz ohne Journal- und Log-Mechanismus',
+      'Log Structured Filesystems'
+    ],
+    correctIndex: 2
+  },
+  {
+    id: 'kt2hs19-10',
+    question:
+        'Verwendet man bei einem Flash Speicher ein ext4 Dateisystem, so befindet sich der "Flash Translation Layer" ...',
+    options: ['auf dem Flash Device', 'im Block Device Driver (z.B. mmcblk0)', 'im Filesystem Driver (ext4)'],
+    correctIndex: 0
+  },
+  {
+    id: 'kt2hs19-11',
+    question:
+        'In welchem Fall bringt die Aufteilung in Page Directories und Page Tables den grössten Vorteil?',
+    options: [
+      'Bei Verwendung von Shared Libraries',
+      'Wenn nur ein kleiner Teil des maximal möglichen virtuellen Adressraumes gepaged wird (also z.B. nur 1MB bei 32-Bit Adressraum)',
+      'Wenn der maximal mögliche virtuelle Adressraum gepaged wird (also z.B. 4GB bei 32-Bit Adressraum)'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'kt2hs19-12',
+    question: 'Bei welcher Variante ist die Lebensdauer eines Flashspeichers am längsten?',
+    options: [
+      'bei stets reichlich freiem Diskspace',
+      'mittels dynamischem Wearleveling',
+      'mittels statisches Wearleveling'
+    ],
+    correctIndex: 2
+  },
+  {
+    id: 'kt2hs19-13',
+    question: 'Ein "Page Fault" wird immer ...',
+    options: [
+      'im Userspace behandelt (das Userspace-Programm lädt die betreffende Page nach)',
+      'im Kernel behandelt (das Programm im "Userspace" merkt davon nichts)',
+      'hardwaremässig behandelt (die MMU lagert die betreffende Page selbständig ein)'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'kt2hs19-14',
+    question: 'Bei welcher Datei-Zugriffsvariante finden typischerweise mehr System Calls statt?',
+    options: [
+      'bei Buffered File IO (fopen, fread, fwrite, ...)',
+      'sowohl bei "Buffered" wie "Unbuffered" finden im Mittel immer genau gleich viele System Calls statt',
+      'bei Unbuffered File IO (open, read, write, ...)'
+    ],
+    correctIndex: 2
+  },
+  {
+    id: 'kt2hs19-15',
+    question: 'Welcher Typ Flash Device hat die grösste Lebensdauer?',
+    options: ['TLC', 'SLC', 'MLC'],
     correctIndex: 1
   }
 ]

@@ -668,5 +668,135 @@ export const questions: Question[] = [
     question: 'Welcher Typ Flash Device hat die grösste Lebensdauer?',
     options: ['TLC', 'SLC', 'MLC'],
     correctIndex: 1
+  },
+
+  // ===== Lab 10: RT Kernel =====
+  {
+    id: 'rtkernel-01',
+    question:
+        'Welches Preemption Model eignet sich am besten für Server-Workloads (Maximierung des Gesamtdurchsatzes)?',
+    options: ['PREEMPT_NONE', 'PREEMPT_VOLUNTARY', 'PREEMPT_RT'],
+    correctIndex: 0
+  },
+  {
+    id: 'rtkernel-02',
+    question:
+        'Welches Preemption Model ist typisch bei Desktop-Linux-Distributionen aktiv (moderates Soft-Realtime für Audio/Video)?',
+    options: ['PREEMPT_NONE', 'PREEMPT_VOLUNTARY', 'PREEMPT_RT'],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-03',
+    question: 'Mit welchem Preemption Model soll im Idealfall Hard-Realtime-Fähigkeit erreicht werden?',
+    options: ['PREEMPT', 'PREEMPT_VOLUNTARY', 'PREEMPT_RT'],
+    correctIndex: 2
+  },
+  {
+    id: 'rtkernel-04',
+    question: 'Was bewirkt der Linux RT-Patch hauptsächlich mit den Interrupt-Routinen?',
+    options: [
+      'Sie werden komplett deaktiviert und durch Polling ersetzt',
+      'Ihre Inhalte werden in normale Kernel-Threads ("Interrupt-Threads") ausgelagert, sodass sie priorisierbar sind',
+      'Sie laufen mit doppelter Priorität, damit sie keine Latenzen verursachen'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-05',
+    question: 'Welcher Linux-Scheduler ist der Default und NICHT realtime-tauglich?',
+    options: ['SCHED_FIFO', 'CFS (Completely Fair Scheduler)', 'SCHED_DEADLINE'],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-06',
+    question: 'Welche Scheduler eignen sich für Realtime-Anwendungen unter Linux?',
+    options: [
+      'SCHED_FIFO, SCHED_RR oder SCHED_DEADLINE',
+      'CFS oder SCHED_OTHER',
+      'SCHED_BATCH oder SCHED_IDLE'
+    ],
+    correctIndex: 0
+  },
+  {
+    id: 'rtkernel-07',
+    question: 'Wozu dient der System-Call mlockall() in einer Realtime-Anwendung?',
+    options: [
+      'Um den Prozess auf eine bestimmte CPU zu binden (CPU-Affinität)',
+      'Um zu verhindern, dass eingelagerte Pages bei Speicherknappheit ausgelagert (geswappt) werden',
+      'Um alle Threads des Prozesses zu synchronisieren'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-08',
+    question: 'Warum sind Programmiersprachen wie Java oder C# für Hard-Realtime ungeeignet?',
+    options: [
+      'Sie sind grundsätzlich zu langsam (Interpreter-basiert)',
+      'Sie verwenden eine automatische Garbage Collection, was zeitlich nicht deterministisch ist',
+      'Sie unterstützen keine echten Threads'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-09',
+    question:
+        'Welches Tool aus dem rt-tests Projekt misst die Latenzzeit zwischen geplanter und tatsächlicher Thread-Aufweckzeit?',
+    options: ['hackbench', 'cyclictest', 'iperf3'],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-10',
+    question:
+        'Welches Tool generiert hohe Rescheduling- und CPU-Last, indem es hunderte Threads startet, die sich gegenseitig kurze Datenpakete senden?',
+    options: ['iperf3', 'cyclictest', 'hackbench'],
+    correctIndex: 2
+  },
+  {
+    id: 'rtkernel-11',
+    question:
+        'Hohe Netzwerklast (z.B. durch iperf3) zeigt sich in top typischerweise als erhöhte CPU-Zeit in welcher Kategorie?',
+    options: ['usr (User-Mode)', 'sys (Kernel Systemcalls)', 'sirq (Softirq)'],
+    correctIndex: 2
+  },
+  {
+    id: 'rtkernel-12',
+    question:
+        'Welche Art von Last führt typischerweise zu hoher "iowait"-CPU-Zeit und damit zu erhöhten Latenzzeiten von Realtime-Threads?',
+    options: [
+      'Viele kurze Datenpakete zwischen Threads (z.B. hackbench)',
+      'Permanente Schreibzugriffe auf die SD-Karte (z.B. via dd)',
+      'Hohe Netzwerklast (z.B. via iperf3)'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-13',
+    question: 'Wie verhält sich der Linux-Kernel bei zu hoher Softirq-Last, um einen "Dead Lock" zu vermeiden?',
+    options: [
+      'Er deaktiviert die Interrupt-Behandlung temporär',
+      'Er bearbeitet die "Bottom Half" stattdessen in Kernel-Threads (ksoftirqd)',
+      'Er erhöht die Priorität aller Softirqs auf RT-Niveau'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-14',
+    question: 'Was bewirkt der Kernel-Command-Line-Parameter "preempt=" (seit Kernel 6.12)?',
+    options: [
+      'Er aktiviert PREEMPT_RT zur Laufzeit (gleichwertig zum Compile-Flag)',
+      'Er setzt die Preemption-Policy zur Laufzeit, ist aber NICHT gleichwertig zu PREEMPT_RT',
+      'Er deaktiviert jegliche Preemption für maximalen Durchsatz'
+    ],
+    correctIndex: 1
+  },
+  {
+    id: 'rtkernel-15',
+    question: 'Welcher Tradeoff besteht beim Einsatz des RT-Patches?',
+    options: [
+      'Höherer Energieverbrauch und geringerer Systemdurchsatz',
+      'Geringere Sicherheit und Stabilität',
+      'Erhöhter Speicherverbrauch durch zusätzliche Page Tables'
+    ],
+    correctIndex: 0
   }
 ]

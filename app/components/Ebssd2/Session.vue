@@ -24,6 +24,7 @@ const SET_LABELS: Record<string, string> = {
   hs19: 'Kurztest 3 (HS19)',
   fs16: 'Kurztest 4 (FS16)',
   kt2hs19: 'Kurztest 2 (HS19)',
+  rtkernel: 'RT Kernel (HS19)',
 }
 
 const sets = computed<QuestionSet[]>(() => {
